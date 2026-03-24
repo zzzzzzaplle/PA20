@@ -15,4 +15,12 @@
             genModel="model/generated/pa19.genmodel"/>
    </extension>
 
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated PA20 -->
+      <package
+            uri="http://www.example.org/pa20"
+            class="pa20.Pa20Package"
+            genModel="model/PA20.genmodel"/>
+   </extension>
+
 </plugin>

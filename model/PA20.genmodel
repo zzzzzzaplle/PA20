@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/PA20/src" modelPluginID="PA20" modelName="PA20"
+    rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container" importerID="org.eclipse.emf.importer.ecore"
+    complianceLevel="21.0" copyrightFields="false" operationReflection="true" importOrganizing="true">
+  <foreignModel>PA20.ecore</foreignModel>
+  <genPackages prefix="Pa20" disposableProviderFactory="true" ecorePackage="PA20.ecore#/">
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="PA20.ecore#//Color">
+      <genEnumLiterals ecoreEnumLiteral="PA20.ecore#//Color/DEFAULT"/>
+      <genEnumLiterals ecoreEnumLiteral="PA20.ecore#//Color/BLACK"/>
+      <genEnumLiterals ecoreEnumLiteral="PA20.ecore#//Color/RED"/>
+      <genEnumLiterals ecoreEnumLiteral="PA20.ecore#//Color/GREEN"/>
+      <genEnumLiterals ecoreEnumLiteral="PA20.ecore#//Color/YELLOW"/>
+      <genEnumLiterals ecoreEnumLiteral="PA20.ecore#//Color/BLUE"/>
+      <genEnumLiterals ecoreEnumLiteral="PA20.ecore#//Color/PURPLE"/>
+      <genEnumLiterals ecoreEnumLiteral="PA20.ecore#//Color/CYAN"/>
+      <genEnumLiterals ecoreEnumLiteral="PA20.ecore#//Color/WHITE"/>
+    </genEnums>
+    <genDataTypes ecoreDataType="PA20.ecore#//initialBoard"/>
+    <genClasses ecoreClass="PA20.ecore#//Place">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute PA20.ecore#//Place/x"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute PA20.ecore#//Place/y"/>
+    </genClasses>
+    <genClasses ecoreClass="PA20.ecore#//Move">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference PA20.ecore#//Move/source"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference PA20.ecore#//Move/destination"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="PA20.ecore#//Player">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute PA20.ecore#//Player/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute PA20.ecore#//Player/score"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute PA20.ecore#//Player/color"/>
+      <genOperations ecoreOperation="PA20.ecore#//Player/nextMove">
+        <genParameters ecoreParameter="PA20.ecore#//Player/nextMove/game"/>
+        <genParameters ecoreParameter="PA20.ecore#//Player/nextMove/availableMoves"/>
+      </genOperations>
+    </genClasses>
+    <genClasses image="false" ecoreClass="PA20.ecore#//Piece">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference PA20.ecore#//Piece/player"/>
+      <genOperations ecoreOperation="PA20.ecore#//Piece/getLabel"/>
+      <genOperations ecoreOperation="PA20.ecore#//Piece/getAvailableMoves">
+        <genParameters ecoreParameter="PA20.ecore#//Piece/getAvailableMoves/game"/>
+        <genParameters ecoreParameter="PA20.ecore#//Piece/getAvailableMoves/source"/>
+      </genOperations>
+    </genClasses>
+    <genClasses ecoreClass="PA20.ecore#//Configuration">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute PA20.ecore#//Configuration/size"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute PA20.ecore#//Configuration/numMovesProtection"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference PA20.ecore#//Configuration/players"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference PA20.ecore#//Configuration/centralPlace"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute PA20.ecore#//Configuration/PieceArray2D"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="PA20.ecore#//Game">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference PA20.ecore#//Game/configuration"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute PA20.ecore#//Game/board"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference PA20.ecore#//Game/currentPlayer"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute PA20.ecore#//Game/numMoves"/>
+      <genOperations ecoreOperation="PA20.ecore#//Game/start"/>
+      <genOperations ecoreOperation="PA20.ecore#//Game/getWinner">
+        <genParameters ecoreParameter="PA20.ecore#//Game/getWinner/lastPlayer"/>
+        <genParameters ecoreParameter="PA20.ecore#//Game/getWinner/lastPiece"/>
+        <genParameters ecoreParameter="PA20.ecore#//Game/getWinner/lastMove"/>
+      </genOperations>
+      <genOperations ecoreOperation="PA20.ecore#//Game/updateScore">
+        <genParameters ecoreParameter="PA20.ecore#//Game/updateScore/player"/>
+        <genParameters ecoreParameter="PA20.ecore#//Game/updateScore/piece"/>
+        <genParameters ecoreParameter="PA20.ecore#//Game/updateScore/move"/>
+      </genOperations>
+      <genOperations ecoreOperation="PA20.ecore#//Game/getAvailableMoves">
+        <genParameters ecoreParameter="PA20.ecore#//Game/getAvailableMoves/player"/>
+      </genOperations>
+      <genOperations ecoreOperation="PA20.ecore#//Game/refreshOutput" body=" int size = this.configuration.getSize();&#xA;        ArrayList&lt;List&lt;String>> contents = new ArrayList&lt;List&lt;String>>();&#xA;        for (int row = size - 1; row >= 0; row--) {&#xA;            ArrayList&lt;String> rowContent = new ArrayList&lt;String>();&#xA;            for (int col = 0; col &lt; size; col++) {&#xA;                Piece piece = this.getPiece(col, row);&#xA;                if (piece == null) {&#xA;                    if (this.getCentralPlace().equals(new Place(col, row))) {&#xA;                        rowContent.add(&quot;x&quot;);&#xA;                    } else {&#xA;                        rowContent.add(&quot;.&quot;);&#xA;                    }&#xA;                } else {&#xA;                    Player player = piece.getPlayer();&#xA;                    rowContent.add(String.format(&quot;%s%c%s&quot;,&#xA;                            player.getColor(),&#xA;                            piece.getLabel(),&#xA;                            Color.DEFAULT));&#xA;                }&#xA;            }&#xA;            contents.add(rowContent);&#xA;        }&#xA;        ArrayList&lt;String> xCoordinates = new ArrayList&lt;String>();&#xA;        for (int i = 0; i &lt; size; i++) {&#xA;            xCoordinates.add(String.valueOf((char) ('a' + i)));&#xA;        }&#xA;        Collections.reverse(contents);&#xA;&#xA;        // clear screen&#xA;        System.out.print(&quot;\u001b[2J&quot;);&#xA;        System.out.flush();&#xA;&#xA;        System.out.println();&#xA;        System.out.println(&quot;### COMP3021 Programming Assignment 1 ###&quot;);&#xA;        System.out.println();&#xA;        System.out.println(&quot;Guide: to move a piece, input the coordinate of source and the destination.&quot;);&#xA;        System.out.println(&quot;For example: a1->b2 means to move the piece at 'a1' to 'b2'&quot;);&#xA;        if (this.numMoves &lt; this.configuration.getNumMovesProtection()) {&#xA;            System.out.println();&#xA;            System.out.println(&quot;Notice: first &quot; + this.configuration.getNumMovesProtection() + &quot; moves are not allowed to&quot; +&#xA;                    &quot; capture pieces or win the game.&quot;);&#xA;        }&#xA;        System.out.println();&#xA;        System.out.println(&quot;Total Moves: &quot; + this.numMoves);&#xA;        // print scores of players&#xA;        for (Player player :&#xA;                this.configuration.getPlayers()) {&#xA;            System.out.printf(&quot;%s%s%s score: %d\n&quot;, player.getColor(), player.getName(), Color.DEFAULT,&#xA;                    player.getScore());&#xA;        }&#xA;        System.out.println();&#xA;        // print the gameboard&#xA;        int leftPadding = 8;&#xA;        StringBuilder paddingSpaceBuilder = new StringBuilder();&#xA;        paddingSpaceBuilder.append(&quot; &quot;.repeat(leftPadding));&#xA;        System.out.printf(&quot;%s%s\n&quot;,&#xA;                paddingSpaceBuilder.toString(),&#xA;                xCoordinates.parallelStream()&#xA;                        .collect(Collectors.joining(&quot; &quot;)));&#xA;        StringBuilder borderBuilder = new StringBuilder();&#xA;        borderBuilder.append(&quot;-&quot;.repeat(Math.max(0, contents.get(0).size() * 2 - 1)));&#xA;        System.out.printf(&quot;%s%s\n&quot;,&#xA;                paddingSpaceBuilder.toString(),&#xA;                borderBuilder.toString());&#xA;        for (int row = contents.size() - 1; row >= 0; row--) {&#xA;            System.out.printf(&quot;%&quot; + (leftPadding - 1) + &quot;d|%s|%d\n&quot;,&#xA;                    row + 1,&#xA;                    contents.get(row).parallelStream().map(Object::toString).collect(Collectors.joining(&quot; &quot;)),&#xA;                    row + 1);&#xA;        }&#xA;        System.out.printf(&quot;%s%s\n&quot;,&#xA;                paddingSpaceBuilder.toString(),&#xA;                borderBuilder.toString());&#xA;        System.out.printf(&quot;%s%s\n&quot;,&#xA;                paddingSpaceBuilder.toString(),&#xA;                xCoordinates.parallelStream()&#xA;                        .collect(Collectors.joining(&quot; &quot;)));&#xA;        System.out.println();"/>
+      <genOperations ecoreOperation="PA20.ecore#//Game/clone" body="  Game cloned = (Game) super.clone();&#xA;        cloned.configuration = this.configuration.clone();&#xA;        cloned.board = this.board.clone();&#xA;        for (int i = 0; i &lt; this.configuration.getSize(); i++) {&#xA;            cloned.board[i] = this.board[i].clone();&#xA;            // no need to deep copy pieces&#xA;            if (this.configuration.getSize() >= 0)&#xA;                System.arraycopy(this.board[i], 0, cloned.board[i], 0, this.configuration.getSize());&#xA;        }&#xA;        cloned.currentPlayer = currentPlayer == null ? null : currentPlayer.clone();&#xA;        return cloned;&#xA;    }"/>
+      <genOperations ecoreOperation="PA20.ecore#//Game/movePiece">
+        <genParameters ecoreParameter="PA20.ecore#//Game/movePiece/move"/>
+      </genOperations>
+      <genOperations ecoreOperation="PA20.ecore#//Game/getPiece">
+        <genParameters ecoreParameter="PA20.ecore#//Game/getPiece/place"/>
+      </genOperations>
+    </genClasses>
+    <genClasses ecoreClass="PA20.ecore#//JesonMor">
+      <genOperations ecoreOperation="PA20.ecore#//JesonMor/start"/>
+      <genOperations ecoreOperation="PA20.ecore#//JesonMor/getWinner">
+        <genParameters ecoreParameter="PA20.ecore#//JesonMor/getWinner/lastPlayer"/>
+        <genParameters ecoreParameter="PA20.ecore#//JesonMor/getWinner/lastPiece"/>
+        <genParameters ecoreParameter="PA20.ecore#//JesonMor/getWinner/lastMove"/>
+      </genOperations>
+      <genOperations ecoreOperation="PA20.ecore#//JesonMor/updateScore">
+        <genParameters ecoreParameter="PA20.ecore#//JesonMor/updateScore/player"/>
+        <genParameters ecoreParameter="PA20.ecore#//JesonMor/updateScore/piece"/>
+        <genParameters ecoreParameter="PA20.ecore#//JesonMor/updateScore/move"/>
+      </genOperations>
+      <genOperations ecoreOperation="PA20.ecore#//JesonMor/movePiece"/>
+      <genOperations ecoreOperation="PA20.ecore#//JesonMor/getAvailableMoves">
+        <genParameters ecoreParameter="PA20.ecore#//JesonMor/getAvailableMoves/player"/>
+      </genOperations>
+    </genClasses>
+    <genClasses ecoreClass="PA20.ecore#//ConsolePlayer">
+      <genOperations ecoreOperation="PA20.ecore#//ConsolePlayer/nextMove">
+        <genParameters ecoreParameter="PA20.ecore#//ConsolePlayer/nextMove/game"/>
+        <genParameters ecoreParameter="PA20.ecore#//ConsolePlayer/nextMove/availableMoves"/>
+      </genOperations>
+    </genClasses>
+    <genClasses ecoreClass="PA20.ecore#//RandomPlayer">
+      <genOperations ecoreOperation="PA20.ecore#//RandomPlayer/nextMove">
+        <genParameters ecoreParameter="PA20.ecore#//RandomPlayer/nextMove/game"/>
+        <genParameters ecoreParameter="PA20.ecore#//RandomPlayer/nextMove/availableMoves"/>
+      </genOperations>
+    </genClasses>
+    <genClasses ecoreClass="PA20.ecore#//Knight">
+      <genOperations ecoreOperation="PA20.ecore#//Knight/getLabel" body="return 'K';"/>
+      <genOperations ecoreOperation="PA20.ecore#//Knight/getAvailableMoves">
+        <genParameters ecoreParameter="PA20.ecore#//Knight/getAvailableMoves/game"/>
+        <genParameters ecoreParameter="PA20.ecore#//Knight/getAvailableMoves/source"/>
+      </genOperations>
+    </genClasses>
+    <genClasses ecoreClass="PA20.ecore#//Archer">
+      <genOperations ecoreOperation="PA20.ecore#//Archer/getLabel" body="return 'A';"/>
+      <genOperations ecoreOperation="PA20.ecore#//Archer/getAvailableMoves">
+        <genParameters ecoreParameter="PA20.ecore#//Archer/getAvailableMoves/game"/>
+        <genParameters ecoreParameter="PA20.ecore#//Archer/getAvailableMoves/source"/>
+      </genOperations>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>

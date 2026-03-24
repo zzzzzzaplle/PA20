@@ -1,9 +1,13 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: Test
-Bundle-SymbolicName: test
+Bundle-Name: %pluginName
+Bundle-SymbolicName: PA20;singleton:=true
 Bundle-Version: 1.0.0.qualifier
-Require-Bundle: org.eclipse.emf.ecore;bundle-version="2.36.0",
+Bundle-ClassPath: .
+Bundle-Vendor: %providerName
+Bundle-Localization: plugin
+Require-Bundle: org.eclipse.core.runtime,
+ org.eclipse.emf.ecore;bundle-version="2.36.0";visibility:=reexport,
  org.eclipse.emf.common;bundle-version="2.36.0",
  org.eclipse.swt,
  org.eclipse.jface,
@@ -24,5 +28,9 @@ Require-Bundle: org.eclipse.emf.ecore;bundle-version="2.36.0",
  org.eclipse.jdt.annotation;bundle-version="2.4.0",
  org.eclipse.emf.mwe2.launch.source;bundle-version="2.23.0",
  org.eclipse.emf.mwe2.launch.ui.source;bundle-version="2.23.0"
-Automatic-Module-Name: test
+Bundle-ActivationPolicy: lazy
+Automatic-Module-Name: PA20
 Bundle-RequiredExecutionEnvironment: JavaSE-21
+Export-Package: pa20,
+ pa20.impl,
+ pa20.util

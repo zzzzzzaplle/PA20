@@ -76,13 +76,35 @@
         <details key="body" value="  Game cloned = (Game) super.clone();&#xA;        cloned.configuration = this.configuration.clone();&#xA;        cloned.board = this.board.clone();&#xA;        for (int i = 0; i &lt; this.configuration.getSize(); i++) {&#xA;            cloned.board[i] = this.board[i].clone();&#xA;            // no need to deep copy pieces&#xA;            if (this.configuration.getSize() >= 0)&#xA;                System.arraycopy(this.board[i], 0, cloned.board[i], 0, this.configuration.getSize());&#xA;        }&#xA;        cloned.currentPlayer = currentPlayer == null ? null : currentPlayer.clone();&#xA;        return cloned;&#xA;    }"/>
       </eAnnotations>
     </eOperations>
+    <eOperations name="movePiece">
+      <eParameters name="move" eType="#//Move"/>
+    </eOperations>
+    <eOperations name="getPiece">
+      <eParameters name="place" eType="#//Place"/>
+    </eOperations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="configuration" lowerBound="1"
         eType="#//Configuration"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="board" eType="#//initialBoard"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="currentPlayer" eType="#//Player"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="numMoves" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="JesonMor" eSuperTypes="#//Game"/>
+  <eClassifiers xsi:type="ecore:EClass" name="JesonMor" eSuperTypes="#//Game">
+    <eOperations name="start" eType="#//Player"/>
+    <eOperations name="getWinner">
+      <eParameters name="lastPlayer" eType="#//Player"/>
+      <eParameters name="lastPiece" eType="#//Piece"/>
+      <eParameters name="lastMove" eType="#//Move"/>
+    </eOperations>
+    <eOperations name="updateScore">
+      <eParameters name="player" eType="#//Player"/>
+      <eParameters name="piece" eType="#//Piece"/>
+      <eParameters name="move" eType="#//Move"/>
+    </eOperations>
+    <eOperations name="movePiece" eType="#//Move"/>
+    <eOperations name="getAvailableMoves" upperBound="-1" eType="#//Move">
+      <eParameters name="player" eType="#//Player"/>
+    </eOperations>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ConsolePlayer" eSuperTypes="#//Player">
     <eOperations name="nextMove" eType="#//Move">
       <eParameters name="game" eType="#//Game"/>
@@ -94,5 +116,85 @@
       <eParameters name="game" eType="#//Game"/>
       <eParameters name="availableMoves" upperBound="-1" eType="#//Move"/>
     </eOperations>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Knight" eSuperTypes="#//Piece">
+    <eOperations name="getLabel" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EChar">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="body" value="return 'K';"/>
+      </eAnnotations>
+    </eOperations>
+    <eOperations name="getAvailableMoves" upperBound="-1" eType="#//Move">
+      <eParameters name="game" eType="#//Game"/>
+      <eParameters name="source" eType="#//Place"/>
+    </eOperations>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Archer" eSuperTypes="#//Piece">
+    <eOperations name="getLabel" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EChar">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="body" value="return 'A';"/>
+      </eAnnotations>
+    </eOperations>
+    <eOperations name="getAvailableMoves" upperBound="-1" eType="#//Move">
+      <eParameters name="game" eType="#//Game"/>
+      <eParameters name="source" eType="#//Place"/>
+    </eOperations>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Rule" abstract="true" interface="true">
+    <eOperations name="validate" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
+      <eParameters name="game" eType="#//Game"/>
+      <eParameters name="move" eType="#//Move"/>
+    </eOperations>
+    <eOperations name="getDescription" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="OutOfBoundaryRule" eSuperTypes="#//Rule">
+    <eOperations name="validate" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
+      <eParameters name="game" eType="#//Game"/>
+      <eParameters name="move" eType="#//Move"/>
+    </eOperations>
+    <eOperations name="getDescription" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="OccupiedRule" eSuperTypes="#//Rule">
+    <eOperations name="validate" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
+      <eParameters name="game" eType="#//Game"/>
+      <eParameters name="move" eType="#//Move"/>
+    </eOperations>
+    <eOperations name="getDescription" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="NilMoveRule" eSuperTypes="#//Rule">
+    <eOperations name="validate" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
+      <eParameters name="game" eType="#//Game"/>
+      <eParameters name="move" eType="#//Move"/>
+    </eOperations>
+    <eOperations name="getDescription" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="KnightMoveRule" eSuperTypes="#//Rule">
+    <eOperations name="validate" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
+      <eParameters name="game" eType="#//Game"/>
+      <eParameters name="move" eType="#//Move"/>
+    </eOperations>
+    <eOperations name="getDescription" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="KnightBlockRule" eSuperTypes="#//Rule">
+    <eOperations name="validate" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
+      <eParameters name="game" eType="#//Game"/>
+      <eParameters name="move" eType="#//Move"/>
+    </eOperations>
+    <eOperations name="getDescription" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="FirstNMovesProtectionRule" eSuperTypes="#//Rule">
+    <eOperations name="validate" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
+      <eParameters name="game" eType="#//Game"/>
+      <eParameters name="move" eType="#//Move"/>
+    </eOperations>
+    <eOperations name="getDescription" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="numProtectedMoves" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"
+        changeable="false"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ArcherMoveRule" eSuperTypes="#//Rule">
+    <eOperations name="validate" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
+      <eParameters name="game" eType="#//Game"/>
+      <eParameters name="move" eType="#//Move"/>
+    </eOperations>
+    <eOperations name="getDescription" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
 </ecore:EPackage>
